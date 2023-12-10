@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Personal poetry website of evelinavely">
+    <meta name="author" content="Pavel Provotorov">
+    <title>Poetry</title>
+    <!-- Assets -->
+    <link rel="preload" href="/assets/thumbnail.png" as="image">
+    <!-- Scripts -->
+    <link rel="preload" href="/scripts/htmx.min.js" as="script">
+    <link rel="preload" href="/scripts/index.js" as="script">
+    <script src="/scripts/htmx.min.js" defer></script>
+    <script src="/scripts/index.js" defer></script>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" href="https://fonts.googleapis.com/css?family=Tajawal|Karla|Inconsolata|Droid+Serif" as="style">
+    <link rel="preload" href="reset.css" as="style">
+    <link rel="preload" href="style.css" as="style">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Tajawal|Karla|Inconsolata|Droid+Serif">
+    <link rel="stylesheet" href="reset.css">
+    <link rel="stylesheet" href="style.css">
+  </head>
+<body>
+    <div id="__flexWrapper__" class="flex-wrapper">
+        <div class="header-container">
+            <header id="header" class="header">HEADER</header>
+        </div>
+        <div id="content" class="content-container">
+            <nav class="navbar-wrapper">
+                <div class="navbar">
+                    <img class="icon" src="/assets/thumbnail_2.png">
+                    <a id="index" href="#header" hx-post="/content/poems.html" hx-target="#main" hx-swap="innerHTML show:window:top">index</a>
+                    <a id="about" href="#header" hx-post="/content/about.html" hx-target="#main" hx-swap="innerHTML show:window:top">about</a>
+                    <a id="contact" href="#footer">contact</a>
+                </div>
+            </nav>
+            <main id="main" class="main">
+                <div hx-post="/content/poems.html" hx-trigger="load" hx-target="this" hx-swap="outerHTML" ></div>
+            </main>
+        </div>
+        <div class="footer-container">
+            <footer id="footer" class="footer">FOOTER</footer>
+        </div>
+    </div>
+</body>
+</html>
