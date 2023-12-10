@@ -8,12 +8,12 @@
     <meta name="author" content="Pavel Provotorov">
     <title>Poetry</title>
     <!-- Assets -->
-    <link rel="preload" href="/assets/thumbnail.png" as="image">
+    <link rel="preload" href="assets/thumbnail.png" as="image">
     <!-- Scripts -->
-    <link rel="preload" href="/scripts/htmx.min.js" as="script">
-    <link rel="preload" href="/scripts/index.js" as="script">
-    <script src="/scripts/htmx.min.js" defer></script>
-    <script src="/scripts/index.js" defer></script>
+    <link rel="preload" href="scripts/htmx.min.js" as="script">
+    <link rel="preload" href="scripts/index.js" as="script">
+    <script src="scripts/htmx.min.js" defer></script>
+    <script src="scripts/index.js" defer></script>
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -32,7 +32,7 @@
         <div id="content" class="content-container">
             <nav class="navbar-wrapper">
                 <div class="navbar">
-                    <img class="icon" src="/assets/thumbnail_2.png">
+                    <img class="icon" src="assets/thumbnail_2.png">
                     <a id="index" href="#header" hx-post="/content/poems.html" hx-target="#main" hx-swap="innerHTML show:window:top">index</a>
                     <a id="about" href="#header" hx-post="/content/about.html" hx-target="#main" hx-swap="innerHTML show:window:top">about</a>
                     <a id="contact" href="#footer">contact</a>
