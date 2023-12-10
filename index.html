@@ -33,13 +33,13 @@
             <nav class="navbar-wrapper">
                 <div class="navbar">
                     <img class="icon" src="assets/thumbnail_2.png">
-                    <a id="index" href="#header" hx-post="/content/poems.html" hx-target="#main" hx-swap="innerHTML show:window:top">index</a>
-                    <a id="about" href="#header" hx-post="/content/about.html" hx-target="#main" hx-swap="innerHTML show:window:top">about</a>
+                    <a id="index" href="#header" hx-get="/content/poems.html" hx-target="#main" hx-swap="innerHTML show:window:top">index</a>
+                    <a id="about" href="#header" hx-get="/content/about.html" hx-target="#main" hx-swap="innerHTML show:window:top">about</a>
                     <a id="contact" href="#footer">contact</a>
                 </div>
             </nav>
             <main id="main" class="main">
-                <div hx-post="/content/poems.html" hx-trigger="load" hx-target="this" hx-swap="outerHTML" ></div>
+                <div hx-get="/content/poems.html" hx-trigger="load" hx-target="this" hx-swap="outerHTML" ></div>
             </main>
         </div>
         <div class="footer-container">
