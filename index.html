@@ -25,6 +25,25 @@
     <link rel="stylesheet" href="style.css">
   </head>
 <body>
+    <svg>
+        <filter id="noise">
+            <feTurbulence 
+                type='fractalNoise'
+                baseFrequency='0.8'
+                numOctaves='3'
+                stitchTiles='stitch'
+                />
+            <feColorMatrix
+            in="turbulence"
+            type="matrix"
+            values="1 1 1 0 0
+                    1 1 1 0 0
+                    1 1 1 0 0
+                    0 0 0 0.4 0"
+            result="grains"
+        />
+        </filter>
+    </svg>
     <div id="__flexWrapper__" class="flex-wrapper">
         <div class="header-container" style="display: none;">
             <header id="header" class="header">HEADER</header>
