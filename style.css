@@ -221,8 +221,7 @@ a {
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url('assets/noise.svg');
-    filter: url('assets/noise.svg#noise');
+    filter: url('assets/noise.svg#__grainNoise__');
     z-index: -1;
 }
 
