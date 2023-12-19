@@ -200,6 +200,7 @@ a {
     z-index: 0;
 }
 
+/*
 .main::after {
     content: "";
     position: absolute;
@@ -209,6 +210,19 @@ a {
     height: 100%;
     pointer-events: none;
     filter: url(#noise);
+    z-index: -1;
+}
+*/
+
+.main::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('assets/noise.svg');
+    filter: url('assets/noise.svg#noise');
     z-index: -1;
 }
 
@@ -239,7 +253,6 @@ a {
 }
 
 .header {
-    /* background-color: blanchedalmond; */
     background-color: var(--third-color);
 
     /* Size */
@@ -250,7 +263,6 @@ a {
 }
 
 .footer {
-    /* background-color: thistle; */
     background-color: var(--third-color);
 
     /* Size */
@@ -377,9 +389,11 @@ time {
     transition: opacity 0.1s ease-out;
 }
 
+/*
 svg {
     position: absolute;
 }
+*/
 
 @media (max-width: 768px) {
     .content-container {
