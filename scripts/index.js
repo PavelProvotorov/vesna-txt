@@ -8,8 +8,19 @@ let hidden_poems = []
 let tag_selected = false
 let tag_text = ""
 
+var example_text = `
+# This is a header
+
+Line 1
+
+Line 2
+
+Line 3 !text-right
+`
+
 // READY
 console.log("<Script started>")
+// console.log(CONVERTER.makeHtml(example_text))
 
 // FUNCTIONS
 function calculateReadingTime() {
