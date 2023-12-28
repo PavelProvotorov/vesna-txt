@@ -9,13 +9,12 @@ let tag_selected = false
 let tag_text = ""
 
 var example_text = `
-# This is a header
+This is a header
+=============
 
-Line 1
+Line 1 @myclass
 
-Line 2
-
-Line 3 !text-right
+^^Tagname
 `
 
 // READY
