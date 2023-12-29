@@ -8,22 +8,55 @@ let hidden_poems = []
 let tag_selected = false
 let tag_text = ""
 
-var example_text = `
-This is a header
-=============
-
-Line 1 @myclass
-
-^^Tagname
-`
-
 // READY
-console.log("<Script started>")
-// console.log(CONVERTER.makeHtml(example_text))
+async function onReady() {
+    try {
+        console.log("<SCRIPT STARTED>")
+        var text = await convertMarkdownToText("content/poem_1.md");
+        console.log(CONVERTER.makeHtml(text));
+
+    } catch (error) {
+        console.error("Error:", error);
+    }
+};
 
 // FUNCTIONS
-function calculateReadingTime() {
+async function convertMarkdownToText(path) {
+    try {
+        // Fetch local storage file
+        const response = await fetch(path);
+        if (!response.ok) {
+            throw new Error("Network error");
+        }
 
+        // Extract text from blob
+        const blob = await response.blob();
+        const text = await extractMarkdownText(blob);
+        return text;
+
+    } catch (error) {
+        console.error("Failed to fetch file: ", error);
+        throw error;
+    }
+};
+
+async function extractMarkdownText(blob) {
+    return new Promise((resolve, reject) => {
+        // Initiate FileReader
+        const reader = new FileReader();
+        
+        // Listen to events
+        reader.onload = function (event) {
+            const text = event.target.result;
+            resolve(text);
+        };
+        reader.onerror = function (event) {
+            reject("Error extracting Markdown file.");
+        };
+
+        // Read file as text
+        reader.readAsText(blob);
+    });
 };
 
 function clickedTag(tag) {
@@ -126,14 +159,7 @@ document.addEventListener("click", (event) => {
     };
 });
 
-htmx.on("htmx:load", (event) => {
-    // console.log(event)
+document.addEventListener('DOMContentLoaded', (event) => {
+    console.log("<DOM CONTENT LOADED>")
+    onReady()
 });
-
-// Fix scroll to top
-//document.addEventListener("htmx:afterSwap", (event) => {
-//    if (!(event.target instanceof HTMLElement)) {
-//      return;
-//    }
-//    window.scrollTo(0, 0);
-// });

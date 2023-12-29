@@ -3,10 +3,10 @@ showdown.setOption("noHeaderId", "true")
 
 // EXTENSION
 const classExtension = [{
-    // Define @class-name at the end of text, to add that class to the HTML element
-    // Example: "This is a paragraph @class-name" will convert to <p class="class-name"> This is a paragraph</p>
+    // Define @@class-name at the end of text, to add that class to the HTML element
+    // Example: "This is a paragraph @@class-name" will convert to <p class="class-name"> This is a paragraph</p>
     type: 'output',
-    regex: /<(.*?)>(.*?)@([\w-]+)(.*?)<\/(.*?)>/g,
+    regex: /<(.*?)>(.*?)@@([\w-]+)(.*?)<\/(.*?)>/g,
     replace: (match, openTag, content, className) => {
         return `<${openTag} class="${className}">${content.trim()}</${openTag}>`;
     }

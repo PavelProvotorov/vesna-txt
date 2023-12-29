@@ -93,3 +93,9 @@ my most authentic self
 I save and never purposely dilute
 
 for someone’s gaze and decadence.
+
+^^evelinavely
+
+^^poetry
+
+^^soul
