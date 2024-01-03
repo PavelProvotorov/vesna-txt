@@ -114,9 +114,11 @@ async function buildPoemFromHTML(html) {
         content_element.innerHTML = html;
 
         const content_title = Array.from(content_element.querySelectorAll("h1")).reverse();
-        const content_lines = Array.from(content_element.querySelectorAll("p")).reverse();
+        const content_lines = Array.from(content_element.querySelectorAll("p, br")).reverse();
         const content_tags = Array.from(content_element.querySelectorAll("button.tag"));
         const content_time= Array.from(content_element.querySelectorAll("time"));
+
+        console.log(content_lines)
 
         // Append content to template
         content_lines.forEach((element) => {
