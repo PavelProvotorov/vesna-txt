@@ -373,7 +373,7 @@ time {
 
 #page {
     opacity: 1;
-    transition: opacity 0.1s ease-out;
+    transition: opacity 0.5s ease-out;
 
     &.htmx-added {
         opacity: 0;

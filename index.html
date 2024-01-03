@@ -7,8 +7,6 @@
     <meta name="description" content="Personal poetry website of evelinavely">
     <meta name="author" content="Pavel Provotorov">
     <title>Poetry</title>
-    <!-- Assets -->
-    <link rel="preload" href="assets/thumbnail.png" as="image">
     <!-- Scripts -->
     <script src="https://unpkg.com/showdown/dist/showdown.min.js" defer></script>
     <script src="scripts/htmx.min.js" defer></script>
@@ -23,6 +21,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Tajawal|Karla|Inconsolata|Droid+Serif">
     <link rel="stylesheet" href="reset.css">
     <link rel="stylesheet" href="style.css">
+    <!-- Assets -->
   </head>
 <body>
     <div id="__flexWrapper__" class="flex-wrapper">
@@ -33,13 +32,12 @@
             <nav class="navbar-wrapper">
                 <div class="navbar">
                     <img class="icon" src="assets/thumbnail_2.png">
-                    <a id="index" href="#header" hx-get="content/poems.html" hx-target="#main" hx-swap="innerHTML show:window:top">index</a>
-                    <a id="about" href="#header" hx-get="content/about.html" hx-target="#main" hx-swap="innerHTML show:window:top">about</a>
+                    <a id="index" href="#header" >index</a>
+                    <a id="about" href="#header" >about</a>
                     <a id="contact" href="#footer">contact</a>
                 </div>
             </nav>
             <main id="main" class="main">
-                <div hx-get="content/poems.html" hx-trigger="load" hx-target="this" hx-swap="outerHTML" ></div>
             </main>
         </div>
         <div class="footer-container">

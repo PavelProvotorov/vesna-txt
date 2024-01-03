@@ -3,6 +3,10 @@ const PAGE_ANCHORS = document.querySelectorAll("a")
 const INDEX_ANCHOR = document.getElementById("index")
 const ABOUT_ANCHOR = document.getElementById("about")
 const CONTACT_ANCHOR = document.getElementById("contact")
+const MAIN = document.getElementById("main")
+
+let STORED_POEMS = undefined
+let STORED_POEMS_PATH = undefined
 
 let hidden_poems = []
 let tag_selected = false
@@ -12,12 +16,13 @@ let tag_text = ""
 async function onReady() {
     try {
         console.log("<SCRIPT STARTED>")
-        var text = await convertMarkdownToText("content/poem_1.md");
-        console.log(CONVERTER.makeHtml(text));
+        await preparePoems()
+        STORED_POEMS_PATH = await createBlobFromHTML(STORED_POEMS.outerHTML)
+        htmx.ajax("GET", STORED_POEMS_PATH, {target:"#main", swap:"innerHTML"})
 
     } catch (error) {
         console.error("Error:", error);
-    }
+    };
 };
 
 // FUNCTIONS
@@ -35,9 +40,9 @@ async function convertMarkdownToText(path) {
         return text;
 
     } catch (error) {
-        console.error("Failed to fetch file: ", error);
+        console.error("Error converting markdown:", error);
         throw error;
-    }
+    };
 };
 
 async function extractMarkdownText(blob) {
@@ -51,12 +56,104 @@ async function extractMarkdownText(blob) {
             resolve(text);
         };
         reader.onerror = function (event) {
-            reject("Error extracting Markdown file.");
+            reject("Error extracting .md file.");
         };
 
         // Read file as text
         reader.readAsText(blob);
     });
+};
+
+async function preparePoems() {
+    try {
+        // Prepare local poem file
+        STORED_POEMS = document.createElement("div");
+        STORED_POEMS.setAttribute("id", "page")
+
+        // Fetch local storage .json file with poems
+        const response = await fetch("content/poems.json");
+        if (!response.ok) {
+            throw new Error("Network error");
+        }
+
+        // Extract poem paths to .md files
+        const poem_data = await response.json();
+        const poem_paths = poem_data.paths;
+        
+        // Build poems and add them to storage
+        for (const path of poem_paths) {
+            const text = await convertMarkdownToText(path);
+            const text_converted = await CONVERTER.makeHtml(text);
+            await buildPoemFromHTML(text_converted);
+        }
+
+    } catch (error) {
+        console.error("Error preparing poems:", error);
+    };
+};
+
+async function buildPoemFromHTML(html) {
+    try {
+        // Fetch .html template
+        const response = await fetch("content/poem_template.html");
+        if (!response.ok) {
+            throw new Error("Failed to fetch poem template");
+        }
+        let template_text = await response.text();
+
+        // Prepare template element
+        let template_element = document.createElement("div");
+        template_element.innerHTML = template_text;
+
+        const template_content_section = template_element.querySelector("article.poem");
+        const template_tag_section = template_element.querySelector("div.tag-container");
+        const template_time_section = template_element.querySelector("div.time-container");
+
+        // Prepare content element
+        let content_element = document.createElement("div");
+        content_element.innerHTML = html;
+
+        const content_title = Array.from(content_element.querySelectorAll("h1")).reverse();
+        const content_lines = Array.from(content_element.querySelectorAll("p")).reverse();
+        const content_tags = Array.from(content_element.querySelectorAll("button.tag"));
+        const content_time= Array.from(content_element.querySelectorAll("time"));
+
+        // Append content to template
+        content_lines.forEach((element) => {
+            template_content_section.prepend(element)
+        });
+
+        content_title.forEach((element) => {
+            template_content_section.prepend(element)
+        });
+
+        content_tags.forEach((element) => {
+            template_tag_section.appendChild(element)
+        });
+
+        content_time.forEach((element) => {
+            template_time_section.appendChild(element)
+        });
+
+        // Add poem to storage
+        STORED_POEMS.appendChild(template_content_section)
+
+    } catch (error) {
+        console.error('Error:', error);
+    }
+};
+
+async function createBlobFromHTML(html) {
+    try {
+        // Create a Blob containing the HTML content
+        const blob = new Blob([html], { type: "text/html" });
+
+        // Create a temporary URL to access the Blob content
+        return blob_url = URL.createObjectURL(blob);
+
+    } catch (error) {
+        console.error("Error:", error);
+    };
 };
 
 function clickedTag(tag) {
@@ -147,6 +244,15 @@ PAGE_ANCHORS.forEach((element) => {
         const target_element = document.getElementById(target_id)
         
         target_element.scrollIntoView({ behavior: "smooth"});
+
+        const anchor = event.target.id
+        if (anchor === "index"){
+            htmx.ajax("GET", STORED_POEMS_PATH, {target:"#main", swap:"innerHTML show:window:top"})
+        }
+
+        if (anchor === "about"){
+            htmx.ajax("GET", "content/about.html", {target:"#main", swap:"innerHTML show:window:top"})
+        }
     });
 });
 
