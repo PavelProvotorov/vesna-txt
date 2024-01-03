@@ -15,7 +15,6 @@ let tag_text = ""
 // READY
 async function onReady() {
     try {
-        console.log("<SCRIPT STARTED>")
         await preparePoems()
         STORED_POEMS_PATH = await createBlobFromHTML(STORED_POEMS.outerHTML)
         htmx.ajax("GET", STORED_POEMS_PATH, {target:"#main", swap:"innerHTML"})
@@ -117,8 +116,6 @@ async function buildPoemFromHTML(html) {
         const content_lines = Array.from(content_element.querySelectorAll("p, br")).reverse();
         const content_tags = Array.from(content_element.querySelectorAll("button.tag"));
         const content_time= Array.from(content_element.querySelectorAll("time"));
-
-        console.log(content_lines)
 
         // Append content to template
         content_lines.forEach((element) => {
@@ -268,6 +265,5 @@ document.addEventListener("click", (event) => {
 });
 
 document.addEventListener('DOMContentLoaded', (event) => {
-    console.log("<DOM CONTENT LOADED>")
     onReady()
 });
