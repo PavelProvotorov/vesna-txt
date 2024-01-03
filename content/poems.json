@@ -1,7 +1,7 @@
 {
     "paths": [
-        "/content/poem_0.md",
-        "/content/poem_1.md",
-        "/content/poem_2.md"
+        "content/poem_0.md",
+        "content/poem_1.md",
+        "content/poem_2.md"
     ]
 }
